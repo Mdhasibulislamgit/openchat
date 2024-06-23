@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MiniWhatsApp</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <h1 class="Heading">OpenChats</h1>
+
+    <form action="/chats/new" method="get">
+      <button class="Button">New Chat</button>
+    </form>
+
+    <br />
+
+    <% for( let chat of chats) { %>
+    <div class="chatBox">
+      <h4 class="From">From: @<%= chat.from %></h4>
+
+      <div class="massage">
+        <p><b>Massage:</b> <%= chat.msg %></p>
+
+        <br>
+
+        <div class="dis_btn">
+          <form action="/chats/<%=chat.id %>/edit" method="get">
+            <button  class="btn">Edit</button>
+          </form>
+  
+          <form method="post" action="/chats/<%=chat._id %>?_method=DELETE">
+            <button class="btn btn2">DELETE</button>
+          </form>
+        </div>
+        
+
+        <br>
+      </div>
+
+      <hr />
+      <h6 class="received">Received by: <%= chat.to %></h6>
+      <h6 class="date">
+        Create Time: <%= chat.create_at.toString().split(" ")[4]%>
+      </h6>
+      <h6 class="date">
+        Create date: <%= chat.create_at.toString().split(" ").slice(0,4).join("-")%>
+      </h6>
+    </div>
+
+    <% } %>
+  </body>
+</html>
