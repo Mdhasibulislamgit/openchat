@@ -4,10 +4,10 @@ const app = express();
 const path = require("path");
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use(express.urlencoded({ extended: true }));
-
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
+
+app.use(express.urlencoded({ extended: true }));
 
 const mongoose = require("mongoose");
 const MONGO_URL = "mongodb://127.0.0.1:27017/whatsapp";
@@ -21,12 +21,16 @@ main()
   .catch((err) => {
     console.log(err);
   });
+
 const methodOverride = require("method-override");
 app.use(methodOverride("_method"));
 
 const Chat = require("./models/chat.js");
 
+//start main code 
+
 //index route for mongodb
+
 app.get("/chats", async (req, res) => {
   let chats = await Chat.find();
   res.render("index.ejs", { chats });
